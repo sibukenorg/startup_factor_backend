@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+    nginx:
+        image: nginx:latest
+        container_name: Nginx-startup_factor
+        ports:
+            - "8890:80"
+        volumes:
+            - ./src:/src
+            - ./docker_config/nginx/:/etc/nginx/conf.d
+        depends_on:
+            - web
+    web:
+        build:
+            context: .
+            dockerfile: ./docker_config/api/dev/Dockerfile
+        image: startup_factor_django
+        depends_on:
+            - db1
+        volumes:
+            - ./src:/src
+        env_file:
+            - ./src/.envs/.dev/.django
+            - ./src/.envs/.dev/.postgres
+    db1:
+      image: postgres:latest
+      container_name: Postgres-startup_factor
+      env_file:
+        - ./src/.envs/.dev/.postgres
+      ports:
+        - 54322:5432
+      expose:
+        - "5432"
