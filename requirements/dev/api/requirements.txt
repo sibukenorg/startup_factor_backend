@@ -4,7 +4,7 @@ argon2-cffi==19.2.0
 pillow==7.1.2
 
 # Django
-django==2.2.10
+django==2.2.13
 django-environ==0.4.5
 django-model-utils==4.0.0
 django-allauth==0.41.0
